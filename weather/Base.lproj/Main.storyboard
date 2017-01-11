@@ -144,7 +144,7 @@
                                         <constraint firstItem="FAq-bg-p82" firstAttribute="centerY" secondItem="C9g-xa-YL1" secondAttribute="centerY" id="uFc-s3-iwP"/>
                                     </constraints>
                                 </view>
-                                <color key="backgroundColor" red="0.40143424945079109" green="1" blue="0.99440461966660576" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.40000000000000002" green="1" blue="0.99440461966660576" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="soF-1C-7a3"/>
                                 </constraints>

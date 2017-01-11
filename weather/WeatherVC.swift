@@ -34,6 +34,8 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
         locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
         
+        self.tableView.addSubview(self.refreshControl)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +76,7 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
                     if let data = daily["data"] as? [Dictionary<String, AnyObject>] {
                         for obj in data {
                             let forecast = Forecast(weatherDict: obj)
-                            self.forecasts.append(forecast)
+                                self.forecasts.append(forecast)
                         }
                         self.forecasts.remove(at: 0)
                         self.tableView.reloadData()
@@ -115,5 +117,31 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
             }
         }
         
+    }
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(WeatherVC.handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        // Simply adding an object to the data source for this example
+        
+        self.forecasts.removeAll()
+        
+        currentWeather.downloadWeatherDetails {
+            self.downloadWeatherDetails {
+                self.updateMainUI()
+            }
+        }
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 }
